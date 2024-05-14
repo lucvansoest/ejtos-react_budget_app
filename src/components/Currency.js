@@ -4,11 +4,12 @@ import { AppContext } from '../context/AppContext';
 const Currency = () => {
     const { dispatch, currency } = useContext(AppContext);
     const [newCurrency, setNewCurrency] = useState(currency);
+
     const handleCurrencyChange = (event) => {
         setNewCurrency(event.target.value);
         dispatch({
             type: 'CHG_CURRENCY',
-            payload: currency,
+            payload: event.target.value,
         });
     }
     return (
@@ -22,7 +23,7 @@ Currency:
 
        <select value={newCurrency} onChange={handleCurrencyChange}>
 
-         <option value="$">$ Dollar</option>
+         <option value="$">Currency$ Dollar</option>
 
          <option value="£">£ Pound</option>
 
