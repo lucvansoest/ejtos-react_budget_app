@@ -1,41 +1,37 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const Currency = () => {
     const { dispatch, currency } = useContext(AppContext);
     const [newCurrency, setNewCurrency] = useState(currency);
 
     const handleCurrencyChange = (event) => {
-        setNewCurrency(event.target.value);
+        setNewCurrency(event);
         dispatch({
             type: 'CHG_CURRENCY',
-            payload: event.target.value,
+            payload: event,
         });
     }
     return (
-<div className='alert alert-secondary'>
-<span>Currency:</span>
-<input type="text"value={newCurrency} onChange={handleCurrencyChange}></input>
+        <div className='alert alert-secondary'>
 
-<label>
+            <Dropdown  onSelect={handleCurrencyChange}>
 
-Currency:
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Currency ({newCurrency})
+            </Dropdown.Toggle>
 
-       <select value={newCurrency} onChange={handleCurrencyChange}>
+            <Dropdown.Menu>
+                <Dropdown.Item eventKey="$">$ Dollar</Dropdown.Item>
+                <Dropdown.Item eventKey="£">£ Pound</Dropdown.Item>
+                <Dropdown.Item eventKey="€">€ Euro</Dropdown.Item>
+                <Dropdown.Item eventKey="₹">₹ Ruppee</Dropdown.Item>
+            </Dropdown.Menu>
+            
+            </Dropdown>
 
-         <option value="$">Currency$ Dollar</option>
-
-         <option value="£">£ Pound</option>
-
-         <option value="€">€ Euro</option>
-
-        <option value="₹">₹ Ruppee</option>
-
-       </select>
-
-     </label>
-
-</div>
+        </div>
     );
 };
 export default Currency;
